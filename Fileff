@@ -1,0 +1,130 @@
+<html><head>
+<!--
+
+JavaScript Snake
+By Patrick Gillespie
+http://patorjk.com/games/snake
+
+Source code is available here: https://github.com/patorjk/JavaScript-Snake
+
+-->
+    <meta charset="utf-8">
+    <title>JavaScript Snake</title>
+    <link rel="stylesheet" id="style" type="text/css" href="./css/main-snake.css">
+    <link rel="shortcut icon" href="css/images/favicon.png">
+
+    <style>
+      .snake-toolbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:10000;
+        padding: 5px;
+      }
+    </style>
+<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script>
+
+function getTheme () {
+    function changeTheme (Theme) {
+        document.getElementById('style').setAttribute('href', Theme);
+    }
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          changeTheme('css/light-snake.css?' + Math.random());
+          break;
+        case 1: 
+          changeTheme('css/main-snake.css?' + Math.random());
+          break;
+        case 2: 
+          changeTheme('css/dark-snake.css?' + Math.random());
+          break;
+    case 3: 
+          changeTheme('css/green-snake.css?' + Math.random());
+          break;
+    case 4: 
+          changeTheme('css/matrix-snake.css?' + Math.random());
+          break;
+    default:
+          changeTheme('css/main-snake.css?' + Math.random());
+          break;
+    }
+    setTimeout(function() {
+        document.getElementById('game-area').focus();
+    }, 10);
+}
+
+if (navigator.onLine && window.location.hostname === 'patorjk.com') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3312460-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+}
+</script>
+</head>
+<body>
+    <div class="snake-toolbar">
+      <div style="display:inline-block;margin-right:10px;">
+        <span>Theme:</span>
+        <select onchange="getTheme()" id="select">
+            <option>Light Theme by yokesharun</option>
+            <option selected="">Main Theme by patorjk</option>
+            <option>Dark Theme by KenyStev</option>
+            <option>Green Theme by CoffeeCatDE</option>
+            <option>Matrix Theme by Geahad Haymor</option>
+        </select>
+      </div>
+      <div style="display:inline-block;margin-right:10px;">
+        <span>Mode:</span>
+        <select id="selectMode">
+            <option value="100">Easy</option>
+            <option value="75" selected="">Medium</option>
+            <option value="50">Hard</option>
+            <option value="25">Impossible</option>
+        </select>
+      </div>
+      <button onclick="go_full_screen()">Full Screen</button><br>
+    </div>
+
+    <!--
+      <h2>Select which mode you would like to play in.</h2>
+      <button id="Easy">Easy</button><br />
+      <button id="Medium">Medium</button><br />
+      <button id="Difficult">Difficult</button>
+
+<button id="high-score">Get your current high score for this game.</button>
+-->
+    <div id="mode-wrapper" style="display: inline; width: auto;">
+    </div>
+
+    <div id="game-area" tabindex="0" class="snake-game-container" style="left: 0px; top: 0px; width: 561px; height: 721px;">
+    <div class="snake-pause-screen" style="z-index: 10000;"><div style="padding:10px;">[Paused]<p>Press [space] to unpause.</p></div></div><div id="playingField" class="snake-playing-field" style="left: 20px; top: 20px; width: 520px; height: 660px;"></div><div class="snake-panel-component" style="top: 686px; width: 450px; left: 56px; display: none;"><a href="http://patorjk.com/blog/software/" class="snake-link">more patorjk.com apps</a> - <a href="https://github.com/patorjk/JavaScript-Snake" class="snake-link">source code</a> - <a href="https://www.instagram.com/patorjk/" class="snake-link">pat's instagram</a></div><div class="snake-panel-component" style="top: 686px; left: 30px;">Length: 1</div><div class="snake-panel-component" style="top: 686px; left: 421px;">Highscore: 6</div><div id="sbWelcome0" class="snake-welcome-dialog" style="z-index: 1000;"><div>JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. On Windows, press F11 to play in Full Screen mode.<p></p></div><button>Play Game</button></div><div id="sbTryAgain0" class="snake-try-again-dialog"><div>JavaScript Snake<p></p>You died :(<p></p></div><button>Play Again?</button></div><div id="sbWin0" class="snake-win-dialog"><div>JavaScript Snake<p></p>You win! :D<p></p></div><button>Play Again?</button></div><div class="snake-snakebody-block snake-snakebody-alive" style="left: 40px; top: 40px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div class="snake-snakebody-block" style="left: -1000px; top: -1000px; width: 20px; height: 20px;"></div><div id="snake-food-0" class="snake-food-block" style="width: 20px; height: 20px; left: 240px; top: 120px;"></div></div>
+    <script type="text/javascript" src="./js/snake.js"></script>
+    <script type="text/javascript">
+        var mySnakeBoard = new SNAKE.Board(  {
+            boardContainer: "game-area",
+            fullScreen: true
+        });  
+    </script>
+    <script type="text/javascript">
+      function go_full_screen(){
+        var elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        }
+      }
+  </script>
+
+
+</body></html>
